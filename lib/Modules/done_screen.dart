@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/shared/build_empty_list.dart';
 import 'package:todo/shared/cubit/cubit.dart';
 import 'package:todo/shared/cubit/states.dart';
-import 'package:todo/shared/widget_task.dart';
 
 class DoneScreen extends StatelessWidget {
   @override

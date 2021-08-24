@@ -2,16 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:todo/Modules/archived_screen.dart';
-import 'package:todo/Modules/new_task_screen.dart';
-import 'package:todo/Modules/done_screen.dart';
-import 'package:todo/shared/constant.dart';
 import 'package:todo/shared/cubit/cubit.dart';
 import 'package:todo/shared/cubit/states.dart';
 // @dart=2.9
 class Home extends StatelessWidget {
-
 
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,13 +13,6 @@ class Home extends StatelessWidget {
   var titleController = TextEditingController();
   var timeController = TextEditingController();
   var dateController = TextEditingController();
-  //List<Map>tasks=[];
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   createDatabase();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,41 +34,12 @@ class Home extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
-                // var name= await getName();
-                // print(name);
-                //insertToDatabase();
+
                 if (cubit.isBottomSheet) {
                   if (formKey.currentState!.validate()) {
                     print("3333333");
                     cubit.insertToDatabase(title: titleController.text, time: timeController.text, date: dateController.text);
-                    // await insertToDatabase(
-                    //     title: titleController.text,
-                    //     date: dateController.text,
-                    //     time: timeController.text)
-                    //     .then((value) {
-                    //   Navigator.pop(context);
-                    //
-                    //   getDataFromDatabase(database).then((value) {
-                    //     // setState(() {
-                    //     //   isBottomSheet = false;
-                    //     //   fabIcon = Icons.edit;
-                    //     //   tasks=value;
-                    //     //
-                    //     //
-                    //     // });
-                    //     print(tasks);
-                    //     // setState(() {
-                    //     //
-                    //     // });
-                    //   });
-                    //
-                    //
-                    //
-                    //
-                    //
-                    // }).catchError((error) {
-                    //   print("error${error.toString()}");
-                    // });
+
                   }
                 } else {
                   scaffoldKey.currentState!.showBottomSheet((context) => Container(
@@ -160,7 +118,6 @@ class Home extends StatelessWidget {
                                 else{
                                   print("error");
                                 }
-                                //     print(value!.format(context));
                               });
                             },
                           )
@@ -169,18 +126,11 @@ class Home extends StatelessWidget {
                     ),
                   )).closed.then((value) {
                     cubit.changeBottomSheetState(isShow: false, icon: Icons.edit);
-                   // isBottomSheet = false;
-                    // setState(() {
-                    //   fabIcon = Icons.edit;
-                    // });
+
                   });
                   cubit.changeBottomSheetState(isShow: true, icon: Icons.add);
 
-                  // setState(() {
-                  //   isBottomSheet = true;
-                  //
-                  //   fabIcon = Icons.add;
-                  // });
+
 
                 }
               },
@@ -190,7 +140,6 @@ class Home extends StatelessWidget {
            state is !AppGetLoadingBaseState?cubit.screens[cubit.currentIndex]:Center(child: CircularProgressIndicator(),),
 
 
-            // ConditionalBuilder(builder:(context) =>screens[currentIndex],condition: tasks.length>0,fallback: (context)=>Center(child: CircularProgressIndicator(),),),
             bottomNavigationBar: BottomNavigationBar(
               items: [
                 BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Tasks'),
@@ -199,9 +148,7 @@ class Home extends StatelessWidget {
               ],
               onTap: (index) {
                 cubit.changeIndex(index);
-                // setState(() {
-                //   currentIndex = index;
-                // });
+
               },
               currentIndex: cubit.currentIndex,
             ),
